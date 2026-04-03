@@ -1,3 +1,6 @@
+import { marked } from "https://esm.sh/marked@14.1.0";
+import DOMPurify from "https://esm.sh/dompurify@3.1.6";
+
 const chat_box = document.getElementById("chat-box");
 
 function scroll_down() {
@@ -43,8 +46,9 @@ export function prompt_message(input_text) {
 
 export function reply_message(input_text) {
     const reply = document.createElement("div");
-    reply.classList.add("reply");
-    reply.textContent = input_text;
+    reply.classList.add("reply", "reply-markdown");
+    const html = marked.parse(input_text, { breaks: true, gfm: true });
+    reply.innerHTML = DOMPurify.sanitize(html);
     chat_box.appendChild(reply);
     scroll_down();
 }
