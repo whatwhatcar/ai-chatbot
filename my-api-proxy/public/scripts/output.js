@@ -3,6 +3,37 @@ import DOMPurify from "https://esm.sh/dompurify@3.1.6";
 
 const chat_box = document.getElementById("chat-box");
 
+/**
+ * Models often emit "1. **A** ... 2. **B**" in one paragraph. Markdown needs line breaks
+ * between items. Also fix leftover **pairs** marked sometimes leaves as literal text.
+ */
+function normalizeAssistantMarkdown(text) {
+    let t = text.trim();
+    // After sentence end or colon, start a new block before "N. "
+    t = t.replace(/([.!?:])\s+(\d+)\.\s+/g, "$1\n\n$2. ");
+    // "word 2. **" — only for 2+ so we don't break "step 1. **"
+    t = t.replace(/([a-zA-Z])\s+(\d+)\.\s+(\*\*)/g, (full, letter, n, stars) => {
+        const num = parseInt(n, 10);
+        if (num < 2) return full;
+        return `${letter}\n\n${n}. ${stars}`;
+    });
+    // Run-on "… 2. **" / "… 10. **" — only split for item 2+ (avoid breaking "step 1. **")
+    t = t.replace(/([^\n])(\d+)\.\s+(\*\*)/g, (full, prev, n, stars) => {
+        const num = parseInt(n, 10);
+        if (num < 2) return full;
+        return `${prev}\n\n${n}. ${stars}`;
+    });
+    t = t.replace(/\n{3,}/g, "\n\n");
+    return t;
+}
+
+function renderAssistantHtml(markdown) {
+    let html = marked.parse(markdown, { breaks: true, gfm: true });
+    // Any **still** left as plain text → bold (apostrophes / % in names can confuse the parser)
+    html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    return DOMPurify.sanitize(html);
+}
+
 function scroll_down() {
     chat_box.scrollTo({
         top: chat_box.scrollHeight,
@@ -47,8 +78,8 @@ export function prompt_message(input_text) {
 export function reply_message(input_text) {
     const reply = document.createElement("div");
     reply.classList.add("reply", "reply-markdown");
-    const html = marked.parse(input_text, { breaks: true, gfm: true });
-    reply.innerHTML = DOMPurify.sanitize(html);
+    const normalized = normalizeAssistantMarkdown(input_text);
+    reply.innerHTML = renderAssistantHtml(normalized);
     chat_box.appendChild(reply);
     scroll_down();
 }

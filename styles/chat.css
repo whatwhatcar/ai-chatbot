@@ -174,12 +174,18 @@
 
 .reply-markdown ul,
 .reply-markdown ol {
-	margin: 0.35em 0;
-	padding-left: 1.15rem;
+	margin: 0.5em 0;
+	padding-left: 1.35rem;
+	list-style-position: outside;
+}
+
+.reply-markdown ol {
+	list-style-type: decimal;
 }
 
 .reply-markdown li {
-	margin: 0.25em 0;
+	margin: 0.45em 0;
+	line-height: 1.45;
 }
 
 .reply-markdown strong {
