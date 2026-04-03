@@ -11,9 +11,17 @@ let request_in_flight = false;
 
 function chatApiUrl() {
     const el = document.querySelector('meta[name="api-origin"]');
-    const origin = el?.getAttribute("content")?.trim() || "";
-    if (origin) return `${origin.replace(/\/$/, "")}/api/chat`;
-    return "/api/chat";
+    const origin = el?.getAttribute("content")?.trim().replace(/\/$/, "") || "";
+    if (origin) return `${origin}/api/chat`;
+
+    const h = location.hostname;
+    const sameOriginApi =
+        h === "localhost" ||
+        h === "127.0.0.1" ||
+        h.endsWith(".workers.dev");
+    if (sameOriginApi) return "/api/chat";
+
+    return null;
 }
 
 export async function receive_input(input_text) {
@@ -28,7 +36,14 @@ export async function receive_input(input_text) {
     const loading_el = add_loading_bubble();
 
     try {
-        const res = await fetch(chatApiUrl(), {
+        const apiUrl = chatApiUrl();
+        if (!apiUrl) {
+            throw new Error(
+                'Missing api-origin. In public/index.html set <meta name="api-origin" content="https://YOUR-worker.workers.dev"> (no trailing slash), commit, push, and wait for GitHub Pages to rebuild.'
+            );
+        }
+
+        const res = await fetch(apiUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
