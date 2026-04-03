@@ -1,0 +1,24 @@
+:root {
+    --primary-color: white;
+
+    --bubble-color: grey;
+    --chat-color: white;
+    --chat-font: 'arial';
+
+    --ai-color: black;
+    --ai-font: 'Times-New-Roman';
+}
+
+
+.logo {
+    height: 60px;
+}
+
+body {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--primary-color),
+
+}
