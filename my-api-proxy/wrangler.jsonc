@@ -13,12 +13,15 @@
 	],
 	"assets": {
 		// The path to the directory containing the `index.html` file to be served at `/`
-		"directory": "./public"
+		"directory": "./public",
+		"binding": "ASSETS",
+		// Without this, POST / is handled by the asset layer (405). Worker must run first for API routes on `/`.
+		"run_worker_first": true
 	},
 	"observability": {
 		"enabled": true
 	},
-	"upload_source_maps": true
+	"upload_source_maps": true,
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
@@ -36,7 +39,11 @@
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
 	 */
-	// "vars": {  "MY_VARIABLE": "production_value" }
+	"vars": {
+		"OPENAI_MODEL": "gpt-4o-mini",
+		"OPENAI_TEMPERATURE": "0.7",
+		"SYSTEM_PROMPT": "You are a helpful beauty and skincare advisor for L'Oréal. Be warm, concise, and practical. Ask a clarifying question when the user's goal is unclear."
+	},
 	/**
 	 * Service Bindings (communicate between multiple Workers)
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings

@@ -2,36 +2,35 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Title</title>
-    <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/chat.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="api-origin" content="">
+	<title>Beauty advisor</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="styles/reset.css">
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/chat.css">
 </head>
 
 <body>
-    <header>
-        <img class="logo" src="loreal-logo.png">
-        <h1>your personal product and routine advisor</h1>
-    </header>
+	<header>
+		<img class="logo" src="loreal-logo.png" alt="L'Oréal">
+		<h1>Your personal product &amp; routine advisor</h1>
+	</header>
 
-    <div class="chat-container">
-        <div id="chat-box">
-            <div class="prompt">hiow you suckkkkk get a life </div>
-            <div class="reply"> hello i recommend you get a life</div>
-            <div class="prompt">hi </div>
-        </div>
+	<div class="chat-container">
+		<div id="chat-box"></div>
 
-        <div class="input-container">
-            <input id="input-field" type="text" autocomplete="off">
-            <button id="send-button" type="button">send</button>
-        </div>
-    </div>
+		<div class="input-container">
+			<input id="input-field" type="text" autocomplete="off" placeholder="Type your question…" aria-label="Message">
+			<button id="send-button" type="button">Send</button>
+		</div>
+	</div>
 
-    <script src="scripts/input.js" type="module"></script>
-    <script src="scripts/main.js" type="module"></script>
-
+	<script src="scripts/input.js" type="module"></script>
+	<script src="scripts/main.js" type="module"></script>
 </body>
 
 </html>

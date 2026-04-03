@@ -1,0 +1,2 @@
+# Copy to .dev.vars (do not commit .dev.vars) for local `wrangler dev`.
+OPENAI_API_KEY=sk-your-openai-api-key-here
