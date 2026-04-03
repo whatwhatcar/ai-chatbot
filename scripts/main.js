@@ -15,6 +15,9 @@ export async function receive_input(input_text) {
 
     const res = await fetch("https://my-api-proxy.myworker-aichatbot.workers.dev/", {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({ messages })
     });
 
