@@ -1,0 +1,71 @@
+:root {
+	--bg-top: #f8f4f0;
+	--bg-bottom: #efe6de;
+	--surface: #ffffff;
+	--surface-elevated: rgba(255, 255, 255, 0.92);
+	--text: #1f1b18;
+	--text-muted: #6e655d;
+	--accent: #8b2942;
+	--accent-hover: #6d1f34;
+	--accent-soft: rgba(139, 41, 66, 0.08);
+	--user-bubble: #2a2624;
+	--user-text: #faf8f6;
+	--assistant-bubble: #f0ebe5;
+	--assistant-text: #2a2624;
+	--border-subtle: rgba(42, 38, 36, 0.08);
+	--shadow-sm: 0 2px 8px rgba(31, 27, 24, 0.06);
+	--shadow-md: 0 8px 32px rgba(31, 27, 24, 0.08);
+	--shadow-lg: 0 24px 48px rgba(31, 27, 24, 0.1);
+	--radius-card: 20px;
+	--radius-pill: 999px;
+	--font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: var(--font-sans);
+	color: var(--text);
+	background: linear-gradient(165deg, var(--bg-top) 0%, var(--bg-bottom) 45%, #e8dfd6 100%);
+	background-attachment: fixed;
+	padding: clamp(1.25rem, 4vw, 2.5rem) 1rem 2rem;
+	text-align: center;
+}
+
+header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	max-width: 36rem;
+	margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.logo {
+	height: clamp(48px, 10vw, 64px);
+	width: auto;
+	object-fit: contain;
+	filter: drop-shadow(0 4px 12px rgba(31, 27, 24, 0.08));
+}
+
+header h1 {
+	font-size: clamp(1.35rem, 3.5vw, 1.75rem);
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	line-height: 1.35;
+	color: var(--text);
+	max-width: 22ch;
+}
+
+header h1::after {
+	content: "";
+	display: block;
+	width: 48px;
+	height: 3px;
+	margin: 1rem auto 0;
+	border-radius: 2px;
+	background: linear-gradient(90deg, transparent, var(--accent), transparent);
+	opacity: 0.45;
+}
