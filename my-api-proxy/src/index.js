@@ -10,6 +10,17 @@
 
 export default {
   async fetch(request, env) {
+    // Handle preflight (important)
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type"
+        }
+      });
+    }
+
     if (request.method !== "POST") {
       return new Response("Method not allowed", { status: 405 });
     }
@@ -25,7 +36,6 @@ export default {
       body: JSON.stringify({
         model: "gpt-4o-mini",
         messages: [
-          { role: "system", content: "You are a helpful assistant." },
           { role: "user", content: message }
         ]
       })
@@ -35,7 +45,12 @@ export default {
 
     return new Response(
       JSON.stringify({ reply: data.choices[0].message.content }),
-      { headers: { "Content-Type": "application/json" } }
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
     );
   }
 };
