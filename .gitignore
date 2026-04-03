@@ -1,1 +1,13 @@
-*.env
+# Secrets (never commit)
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# Dependencies & build
+node_modules/
+.wrangler/
+
+# OS / editor
+.DS_Store
+Thumbs.db
